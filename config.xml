@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
+<widget xmlns= "http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0" id="com.testepush" version="1.0.0">
+
+    <name>Teste Push</name>
+    <description>
+       Teste Push
+    </description>
+    <author email="dev@cordova.apache.org" href="http://cordova.io">
+        Smartpublishing
+    </author>
+
+
+	<!--<icon src="icons/ios/icon.png"          gap:platform="ios" width="57"  height="57"  />
+    <icon src="icons/ios/icon-72.png"       gap:platform="ios" width="72"  height="72"  />
+    <icon src="icons/ios/icon_at_2x.png"    gap:platform="ios" width="114" height="114" />
+     retina iPad
+    <icon src="icons/ios/icon-72_at_2x.png" gap:platform="ios" width="144" height="144" />
+
+
+	<gap:splash src="splash/ios/Default.png"                 gap:platform="ios" width="320"  height="480"  />
+    <gap:splash src="splash/ios/Default_at_2x.png"           gap:platform="ios" width="640"  height="960"  />
+    <gap:splash src="splash/ios/Default_iphone5.png"         gap:platform="ios" width="640"  height="1136" />
+    <gap:splash src="splash/ios/Default-Landscape.png"       gap:platform="ios" width="1024" height="748"  />
+    <gap:splash src="splash/ios/Default-Portrait.png"        gap:platform="ios" width="768"  height="1004" />
+    <!-- retina iPad
+    <gap:splash src="splash/ios/Default-Landscape_at_2x.png" gap:platform="ios" width="2048" height="1496" />
+    <gap:splash src="splash/ios/Default-Portrait_at_2x.png"  gap:platform="ios" width="1536" height="2008" />-->
+
+    <gap:plugin name="org.apache.cordova.device" version="0.2.8" />
+	<gap:plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" />
+
+
+	<preference name="phonegap-version"           value="3.6.0" />          <!-- all: current version of PhoneGap -->
+
+
+    <content src="index.html" />
+    <access origin="*" />
+</widget>
