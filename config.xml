@@ -32,7 +32,7 @@
 	<gap:plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" />
 
 
-	<preference name="phonegap-version"           value="3.6.0" />          <!-- all: current version of PhoneGap -->
+	<preference name="phonegap-version"           value="3.5.0" />          <!-- all: current version of PhoneGap -->
 
 
     <content src="index.html" />
