@@ -38,7 +38,7 @@
                pushNotification = window.plugins.pushNotification;
                if (device.platform == 'android' || device.platform == 'Android') {
                   $("#app-status-ul").append('<li>registering android</li>');
-                    	pushNotification.register(successHandler, errorHandler, {"senderID":"490169002950","ecb":"onNotificationGCM"});		// required!
+                    	pushNotification.register(successHandler, errorHandler, {"senderID":"510667245122","ecb":"onNotificationGCM"});		// required!
                     } else {
                       $("#app-status-ul").append('<li>registering iOS</li>');
                     	pushNotification.register(tokenHandler, errorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});	// required!
@@ -94,7 +94,7 @@
                             },
                             timeout:60000,
                             success:function(data){
-                                $("#app-status-ul").append('<li>response :' + data + "</li>");
+                                $("#app-status-ul").append('<li>response :' + data.success + "</li>");
                             }
                         });
 
