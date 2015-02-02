@@ -83,22 +83,22 @@
 						// here is where you might want to send it the regID for later use.
 						console.log("regID = " + e.regid);
 
-                        $.ajax({
-                            type: "POST",
-                            url: "http://maxmeio.mine.nu/cnt/unirn/servidorpush/add.php",
-                            dataType: "json",
-                            data: {'key': e.regid}
-                            beforeSend: function(){
-                                alert('Send');
-                            },
-                            success: function(responseData, textStatus, jqXHR){
-                                alert('teste');
-                                $("#app-status-ul").append('<li>response :' + responseData + "</li>");
-                            },
-                            error: function(text){
-                                alert('POST failed.');
-                            }
-                        });
+                        // $.ajax({
+                        //     type: "POST",
+                        //     url: "http://maxmeio.mine.nu/cnt/unirn/servidorpush/add.php",
+                        //     dataType: "json",
+                        //     data: {'key': e.regid}
+                        //     beforeSend: function(){
+                        //         alert('Send');
+                        //     },
+                        //     success: function(responseData, textStatus, jqXHR){
+                        //         alert('teste');
+                        //         $("#app-status-ul").append('<li>response :' + responseData + "</li>");
+                        //     },
+                        //     error: function(text){
+                        //         alert('POST failed.');
+                        //     }
+                        // });
 
 
 					}
