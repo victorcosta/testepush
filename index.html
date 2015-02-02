@@ -1,27 +1,31 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-        <title>com.PhoneGap.c2dm</title>
-    </head>
-    <body>
+<head>
+    <title>com.PhoneGap.c2dm</title>
+</head>
+<body>
 
-        <!--<script type="text/javascript" charset="utf-8" src="cordova-2.2.0.js"></script>-->
-        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-        <script type="text/javascript" charset="utf-8" src="js/jquery_1.5.2.min.js"></script>
-        <script type="text/javascript" src="PushNotification.js"></script>
+    <!--<script type="text/javascript" charset="utf-8" src="cordova-2.2.0.js"></script>-->
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/jquery_1.5.2.min.js"></script>
+    <script type="text/javascript" src="PushNotification.js"></script>
 
-        <script type="text/javascript">
-            var pushNotification;
+    <script type="text/javascript">
+        var pushNotification;
 
-            function onDeviceReady() {
-                $("#app-status-ul").append('<li>deviceready event received</li>');
+        $( document ).bind( "mobileinit", function() {
+            $.mobile.allowCrossDomainPages = true;
+        });
 
-				document.addEventListener("backbutton", function(e)
-				{
-                	$("#app-status-ul").append('<li>backbutton event received</li>');
+        function onDeviceReady() {
+            $("#app-status-ul").append('<li>deviceready event received</li>');
 
-      				if( $("#home").length > 0)
-					{
+            document.addEventListener("backbutton", function(e)
+            {
+             $("#app-status-ul").append('<li>backbutton event received</li>');
+
+             if( $("#home").length > 0)
+             {
 						// call this to get a new token each time. don't call it to reuse existing token.
 						//pushNotification.unregister(successHandler, errorHandler);
 						e.preventDefault();
@@ -33,41 +37,41 @@
 					}
 				}, false);
 
-				try
-				{
-                	pushNotification = window.plugins.pushNotification;
-                	if (device.platform == 'android' || device.platform == 'Android') {
-						$("#app-status-ul").append('<li>registering android</li>');
+            try
+            {
+             pushNotification = window.plugins.pushNotification;
+             if (device.platform == 'android' || device.platform == 'Android') {
+              $("#app-status-ul").append('<li>registering android</li>');
                     	pushNotification.register(successHandler, errorHandler, {"senderID":"490169002950","ecb":"onNotificationGCM"});		// required!
-					} else {
-						$("#app-status-ul").append('<li>registering iOS</li>');
+                    } else {
+                      $("#app-status-ul").append('<li>registering iOS</li>');
                     	pushNotification.register(tokenHandler, errorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});	// required!
-                	}
+                    }
                 }
-				catch(err)
-				{
-					txt="There was an error on this page.\n\n";
-					txt+="Error description: " + err.message + "\n\n";
-					alert(txt);
-				}
-            }
+                catch(err)
+                {
+                 txt="There was an error on this page.\n\n";
+                 txt+="Error description: " + err.message + "\n\n";
+                 alert(txt);
+             }
+         }
 
             // handle APNS notifications for iOS
             function onNotificationAPN(e) {
                 if (e.alert) {
-                     $("#app-status-ul").append('<li>push-notification: ' + e.alert + '</li>');
-                     navigator.notification.alert(e.alert);
-                }
+                 $("#app-status-ul").append('<li>push-notification: ' + e.alert + '</li>');
+                 navigator.notification.alert(e.alert);
+             }
 
-                if (e.sound) {
-                    var snd = new Media(e.sound);
-                    snd.play();
-                }
-
-                if (e.badge) {
-                    pushNotification.setApplicationIconBadgeNumber(successHandler, e.badge);
-                }
+             if (e.sound) {
+                var snd = new Media(e.sound);
+                snd.play();
             }
+
+            if (e.badge) {
+                pushNotification.setApplicationIconBadgeNumber(successHandler, e.badge);
+            }
+        }
 
             // handle GCM notifications for Android
             function onNotificationGCM(e) {
@@ -76,32 +80,32 @@
                 switch( e.event )
                 {
                     case 'registered':
-					if ( e.regid.length > 0 )
-					{
-						$("#app-status-ul").append('<li>REGISTERED -> REGID:' + e.regid + "</li>");
+                    if ( e.regid.length > 0 )
+                    {
+                      $("#app-status-ul").append('<li>REGISTERED -> REGID:' + e.regid + "</li>");
 						// Your GCM push server needs to know the regID before it can push to this device
 						// here is where you might want to send it the regID for later use.
 						console.log("regID = " + e.regid);
 
-                        // $.ajax({
-                        //     type: "POST",
-                        //     url: "http://maxmeio.mine.nu/cnt/unirn/servidorpush/add.php",
-                        //     dataType: "json",
-                        //     data: {'key': e.regid}
-                        //     beforeSend: function(){
-                        //         alert('Send');
-                        //     },
-                        //     success: function(responseData, textStatus, jqXHR){
-                        //         alert('teste');
-                        //         $("#app-status-ul").append('<li>response :' + responseData + "</li>");
-                        //     },
-                        //     error: function(text){
-                        //         alert('POST failed.');
-                        //     }
-                        // });
+                        $.ajax({
+                            type: "POST",
+                            url: "http://maxmeio.mine.nu/cnt/unirn/servidorpush/add.php",
+                            dataType: "json",
+                            data: {'key': e.regid}
+                            beforeSend: function(){
+                                alert('Send');
+                            },
+                            success: function(responseData, textStatus, jqXHR){
+                                alert('teste');
+                                $("#app-status-ul").append('<li>response :' + responseData + "</li>");
+                            },
+                            error: function(text){
+                                alert('POST failed.');
+                            }
+                        });
 
 
-					}
+                    }
                     break;
 
                     case 'message':
@@ -109,7 +113,7 @@
                     	// you might want to play a sound to get the user's attention, throw up a dialog, etc.
                     	if (e.foreground)
                     	{
-							$("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
+                           $("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
 
 							// if the notification contains a soundname, play it.
 							var my_media = new Media("/android_asset/www/"+e.soundname);
@@ -120,24 +124,24 @@
 							if (e.coldstart)
 								$("#app-status-ul").append('<li>--COLDSTART NOTIFICATION--' + '</li>');
 							else
-							$("#app-status-ul").append('<li>--BACKGROUND NOTIFICATION--' + '</li>');
-						}
+                               $("#app-status-ul").append('<li>--BACKGROUND NOTIFICATION--' + '</li>');
+                       }
 
-						$("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
-						$("#app-status-ul").append('<li>MESSAGE -> MSGCNT: ' + e.payload.msgcnt + '</li>');
-                    break;
+                       $("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
+                       $("#app-status-ul").append('<li>MESSAGE -> MSGCNT: ' + e.payload.msgcnt + '</li>');
+                       break;
 
-                    case 'error':
-						$("#app-status-ul").append('<li>ERROR -> MSG:' + e.msg + '</li>');
-                    break;
+                       case 'error':
+                       $("#app-status-ul").append('<li>ERROR -> MSG:' + e.msg + '</li>');
+                       break;
 
-                    default:
-						$("#app-status-ul").append('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
-                    break;
-                }
-            }
+                       default:
+                       $("#app-status-ul").append('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
+                       break;
+                   }
+               }
 
-            function tokenHandler (result) {
+               function tokenHandler (result) {
                 $("#app-status-ul").append('<li>token: '+ result +'</li>');
                 // Your iOS push server needs to know the token before it can push to this device
                 // here is where you might want to send it the token for later use.
@@ -151,15 +155,15 @@
                 $("#app-status-ul").append('<li>error:'+ error +'</li>');
             }
 
-			document.addEventListener('deviceready', onDeviceReady, true);
+            document.addEventListener('deviceready', onDeviceReady, true);
 
-         </script>
-		<div id="home">
-			<div id="app-status-div">
-				<ul id="app-status-ul">
-					<li>Cordova PushNotification Plugin Demo</li>
-				</ul>
-			</div>
-		</div>
-    </body>
+        </script>
+        <div id="home">
+           <div id="app-status-div">
+            <ul id="app-status-ul">
+             <li>Cordova PushNotification Plugin Demo</li>
+         </ul>
+     </div>
+ </div>
+</body>
 </html>
