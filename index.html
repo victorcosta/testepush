@@ -89,14 +89,14 @@
                             dataType: "json",
                             data: {'key': e.regid}
                             beforeSend: function(){
-                                console.log("carregando...");
+                                alert('Send');
                             },
-                            success: function(text){
-                                console.log(text);
-                                $("#app-status-ul").append('<li>response :' + msg + "</li>");
+                            success: function(responseData, textStatus, jqXHR){
+                                alert('teste');
+                                $("#app-status-ul").append('<li>response :' + responseData + "</li>");
                             },
                             error: function(text){
-                                console.log(text);
+                                alert('POST failed.');
                             }
                         });
 
